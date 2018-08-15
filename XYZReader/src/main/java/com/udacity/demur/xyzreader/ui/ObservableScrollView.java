@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.xyzreader.ui;
+package com.udacity.demur.xyzreader.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

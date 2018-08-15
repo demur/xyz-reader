@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.xyzreader"
+    package="com.udacity.demur.xyzreader"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Bacon">
 
         <activity
-            android:name=".ui.ArticleListActivity"
+            android:name="com.udacity.demur.xyzreader.ui.ArticleListActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,25 +24,25 @@
         </activity>
 
         <activity
-            android:name=".ui.ArticleDetailActivity"
-            android:parentActivityName=".ui.ArticleListActivity">
+            android:name="com.udacity.demur.xyzreader.ui.ArticleDetailActivity"
+            android:parentActivityName="com.udacity.demur.xyzreader.ui.ArticleListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/vnd.com.example.xyzreader.items" />
+                <data android:mimeType="vnd.android.cursor.item/vnd.com.udacity.demur.xyzreader.items" />
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ArticleListActivity" />
+                android:value="com.udacity.demur.xyzreader.ui.ArticleListActivity" />
         </activity>
 
         <service
-            android:name=".data.UpdaterService"
+            android:name="com.udacity.demur.xyzreader.data.UpdaterService"
             android:exported="false" />
 
         <provider
-            android:name=".data.ItemsProvider"
-            android:authorities="com.example.xyzreader"
+            android:name="com.udacity.demur.xyzreader.data.ItemsProvider"
+            android:authorities="com.udacity.demur.xyzreader"
             android:exported="false" />
 
     </application>

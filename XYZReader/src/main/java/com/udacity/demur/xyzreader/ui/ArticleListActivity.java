@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui;
+package com.udacity.demur.xyzreader.ui;
 
 import android.app.LoaderManager;
 import android.content.BroadcastReceiver;
@@ -20,10 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.xyzreader.R;
-import com.example.xyzreader.data.ArticleLoader;
-import com.example.xyzreader.data.ItemsContract;
-import com.example.xyzreader.data.UpdaterService;
+import com.udacity.demur.xyzreader.R;
+import com.udacity.demur.xyzreader.data.ArticleLoader;
+import com.udacity.demur.xyzreader.data.ItemsContract;
+import com.udacity.demur.xyzreader.data.UpdaterService;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.xyzreader.ui;
+package com.udacity.demur.xyzreader.ui;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -25,8 +25,8 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.example.xyzreader.R;
-import com.example.xyzreader.data.ArticleLoader;
+import com.udacity.demur.xyzreader.R;
+import com.udacity.demur.xyzreader.data.ArticleLoader;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

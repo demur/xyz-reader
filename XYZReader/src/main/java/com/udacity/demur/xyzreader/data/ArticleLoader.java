@@ -1,4 +1,4 @@
-package com.example.xyzreader.data;
+package com.udacity.demur.xyzreader.data;
 
 import android.content.Context;
 import android.content.CursorLoader;
