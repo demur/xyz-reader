@@ -8,5 +8,6 @@
     <string name="action_share">Share</string>
 
     <string name="up">Up</string>
+    <string name="udacity_json_articles_source" translatable="false">https://go.udacity.com/xyz-reader-json</string>
 
 </resources>
