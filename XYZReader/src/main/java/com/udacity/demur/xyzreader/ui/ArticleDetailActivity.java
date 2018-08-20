@@ -1,5 +1,6 @@
 package com.udacity.demur.xyzreader.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.LoaderManager;
@@ -88,6 +89,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mUpButtonContainer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @SuppressLint("NewApi")
                 @Override
                 public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
                     view.onApplyWindowInsets(windowInsets);
@@ -100,7 +102,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
 
         if (savedInstanceState == null) {
-            if (getIntent() != null && getIntent().getData() != null) {
+            if (null != getIntent() && null != getIntent().getData()) {
                 mStartId = ItemsContract.Items.getItemId(getIntent().getData());
                 mSelectedItemId = mStartId;
             }
