@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -51,6 +52,8 @@ public class ArticleListActivity extends AppCompatActivity implements
     private Toolbar mToolbar;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
+    private final String LAYOUT_MANAGER_STATE_KEY = "layout_manager_state";
+    private Parcelable mLayoutManagerState;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -75,6 +78,33 @@ public class ArticleListActivity extends AppCompatActivity implements
 
         if (savedInstanceState == null) {
             refresh();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(LAYOUT_MANAGER_STATE_KEY, mRecyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (null != savedInstanceState) {
+            if (savedInstanceState.containsKey(LAYOUT_MANAGER_STATE_KEY)
+                    && null != savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE_KEY)) {
+                mLayoutManagerState = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE_KEY);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (null != mLayoutManagerState) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mLayoutManagerState);
+            // Preventing recurring use of this state on the rest of onResume single calls (without onRestoreInstanceState)
+            mLayoutManagerState = null;
         }
     }
 
@@ -198,7 +228,6 @@ public class ArticleListActivity extends AppCompatActivity implements
                             holder.thumbnailView.setImageBitmap(bitmap);
                             holder.thumbnailView.setAdjustViewBounds(true);
                             holder.thumbnailView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            //holder.cvCover;
                             ConstraintSet constraints = new ConstraintSet();
                             constraints.clone((ConstraintLayout) holder.cvCover.getParent());
                             constraints.setDimensionRatio(holder.cvCover.getId(),
