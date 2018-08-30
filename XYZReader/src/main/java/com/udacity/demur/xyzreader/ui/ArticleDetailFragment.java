@@ -3,6 +3,7 @@ package com.udacity.demur.xyzreader.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -26,6 +27,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,8 +64,10 @@ public class ArticleDetailFragment extends Fragment implements
     private ImageView mPhotoView;
     private boolean mIsCard = false;
 
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
@@ -212,11 +216,13 @@ public class ArticleDetailFragment extends Fragment implements
                                     mMutedColor = p.getDarkMutedColor(0xFF333333);
                                     mRootView.findViewById(R.id.meta_bar).setBackgroundColor(mMutedColor);
                                 }
+                                scheduleSupportStartPostponedTransition(mPhotoView);
                             }
 
                             @Override
                             public void onBitmapFailed(Exception e, Drawable errorDrawable) {
                                 Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
+                                scheduleSupportStartPostponedTransition(mPhotoView);
                             }
 
                             @Override
@@ -272,11 +278,13 @@ public class ArticleDetailFragment extends Fragment implements
                                 });
                             }
                         }
+                        scheduleSupportStartPostponedTransition(mPhotoView);
                     }
 
                     @Override
                     public void onError(Exception e) {
                         Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
+                        scheduleSupportStartPostponedTransition(mPhotoView);
                     }
                 });
             }
@@ -337,6 +345,20 @@ public class ArticleDetailFragment extends Fragment implements
                 //hostActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 //hostActivity.getSupportActionBar().setHomeButtonEnabled(true);
             }
+        }
+    }
+
+    private void scheduleSupportStartPostponedTransition(final View sharedElement) {
+        if (mFragmentVisibilityState) {
+            sharedElement.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            sharedElement.getViewTreeObserver().removeOnPreDrawListener(this);
+                            getActivity().supportStartPostponedEnterTransition();
+                            return true;
+                        }
+                    });
         }
     }
 }

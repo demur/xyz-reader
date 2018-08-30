@@ -1,5 +1,6 @@
 package com.udacity.demur.xyzreader.ui;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +13,10 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -22,6 +25,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -54,8 +58,10 @@ public class ArticleListActivity extends AppCompatActivity implements
     private final String LAYOUT_MANAGER_STATE_KEY = "layout_manager_state";
     private Parcelable mLayoutManagerState;
 
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
+    @SuppressLint("SimpleDateFormat")
     private SimpleDateFormat outputFormat = new SimpleDateFormat();
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
@@ -186,8 +192,14 @@ public class ArticleListActivity extends AppCompatActivity implements
             view.findViewById(R.id.cv_cover).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(Intent.ACTION_VIEW,
-                            ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
+                    Pair<View, String> p1 = Pair.create(view.findViewById(R.id.thumbnail), "cover_image");
+                    Pair<View, String> p2 = Pair.create(view.findViewById(R.id.article_title), "article_title");
+                    Pair<View, String> p3 = Pair.create(view.findViewById(R.id.article_subtitle), "article_subtitle");
+                    @SuppressWarnings("unchecked")
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(ArticleListActivity.this, p1, p2, p3);
+                    startActivity(intent, options.toBundle());
                 }
             });
             return vh;
@@ -273,5 +285,15 @@ public class ArticleListActivity extends AppCompatActivity implements
             subtitleView = view.findViewById(R.id.article_subtitle);
             cvCover = view.findViewById(R.id.cv_cover);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                supportFinishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

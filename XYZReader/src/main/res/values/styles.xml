@@ -25,10 +25,15 @@
         <item name="android:textColor">@color/theme_text_primary</item>
         <item name="android:textColorSecondary">@color/theme_text_secondary</item>
         <item name="divider">@color/theme_divider</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowEnterTransition" tools:ignore="NewApi">@android:transition/explode</item>
+        <item name="android:windowExitTransition" tools:ignore="NewApi">@android:transition/explode</item>
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">@transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">@transition/change_image_transform</item>
     </style>
 
     <style name="Theme.Bacon.Detail">
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
     </style>
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="Theme.Bacon">
@@ -107,6 +112,7 @@
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">@dimen/detail_title_text_size</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:transitionName" tools:ignore="NewApi">article_title</item>
     </style>
 
     <style name="DetailArticleByLine">
@@ -114,6 +120,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#8fff</item>
+        <item name="android:transitionName" tools:ignore="NewApi">article_subtitle</item>
     </style>
 
     <style name="DetailIVBack">
@@ -139,6 +146,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:transitionName" tools:ignore="NewApi">cover_image</item>
     </style>
 
     <style name="DetailCollapsingToolbar">
@@ -269,6 +277,7 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+        <item name="android:transitionName" tools:ignore="NewApi">cover_image</item>
     </style>
 
     <style name="ListItemCardTextBacking">
@@ -294,6 +303,7 @@
         <item name="layout_constraintBottom_toTopOf">@id/article_subtitle</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:transitionName" tools:ignore="NewApi">article_title</item>
     </style>
 
     <style name="ListItemSubTitle" parent="@style/TextAppearance.AppCompat.Body1">
@@ -308,5 +318,6 @@
         <item name="layout_constraintBottom_toBottomOf">@id/thumbnail</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="android:transitionName" tools:ignore="NewApi">article_subtitle</item>
     </style>
 </resources>
