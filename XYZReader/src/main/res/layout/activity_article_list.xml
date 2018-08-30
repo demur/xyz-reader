@@ -1,51 +1,28 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/MainCoordinatorLayout">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        style="@style/MainSwipeRefreshLayout">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingEnd="@dimen/list_side_margin"
-            android:paddingStart="@dimen/list_side_margin"
-            android:scrollbarStyle="outsideOverlay" />
+            style="@style/MainRecyclerView" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/toolbar_container"
-        android:layout_width="match_parent"
-        android:layout_height="112dp"
-        android:background="?colorPrimary"
-        android:elevation="8dp">
+        style="@style/MainAppBar">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+        <android.support.design.widget.CollapsingToolbarLayout style="@style/MainCollapsingToolbar">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_gravity="bottom"
-                android:layout_marginEnd="@dimen/list_toolbar_side_margin"
-                android:layout_marginStart="@dimen/list_toolbar_side_margin"
-                app:layout_collapseMode="pin"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                style="@style/MainToolbar">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/logo" />
+                    style="@style/MainToolbarLogo"
+                    android:contentDescription="@string/app_name" />
 
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.CollapsingToolbarLayout>

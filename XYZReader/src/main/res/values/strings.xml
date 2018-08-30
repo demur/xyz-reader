@@ -9,5 +9,7 @@
 
     <string name="up">Up</string>
     <string name="udacity_json_articles_source" translatable="false">https://go.udacity.com/xyz-reader-json</string>
+    <string name="detail_photo_content_description">Article cover image</string>
+    <string name="article_cover_thumbnail">Article cover thumbnail</string>
 
 </resources>

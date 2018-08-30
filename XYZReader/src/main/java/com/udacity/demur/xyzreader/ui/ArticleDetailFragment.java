@@ -1,8 +1,11 @@
 package com.udacity.demur.xyzreader.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,22 +20,27 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.udacity.demur.xyzreader.R;
 import com.udacity.demur.xyzreader.data.ArticleLoader;
+import com.udacity.demur.xyzreader.service.Utilities;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Objects;
 
 /**
  * A fragment representing a single Article detail screen. This fragment is
@@ -126,7 +134,7 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     private void bindViews() {
-        if (mRootView == null) {
+        if (null == mRootView) {
             return;
         }
 
@@ -135,10 +143,20 @@ public class ArticleDetailFragment extends Fragment implements
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = mRootView.findViewById(R.id.article_body);
 
+        if (mIsCard) {
+            View spacer = mRootView.findViewById(R.id.spacer);
+            if (0 == spacer.getHeight()) {
+                DisplayMetrics displayMetrics = new DisplayMetrics();
+                Objects.requireNonNull(getActivity()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+                ViewGroup.LayoutParams params = spacer.getLayoutParams();
+                TypedValue spacerRatioValue = new TypedValue();
+                getResources().getValue(R.dimen.spacer_to_window_height_ratio, spacerRatioValue, true);
+                params.height = Math.round(displayMetrics.heightPixels * spacerRatioValue.getFloat());
+                spacer.setLayoutParams(params);
+            }
+        }
 
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
-
-        if (mCursor != null) {
+        if (null != mCursor) {
             mRootView.setAlpha(0);
             mRootView.setVisibility(View.VISIBLE);
             mRootView.animate().alpha(1);
@@ -173,66 +191,95 @@ public class ArticleDetailFragment extends Fragment implements
             }
             bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
 
-            /*Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .noPlaceholder().error(R.drawable.ic_broken_image)
-                    .fit().centerCrop().into(mPhotoView, new Callback() {
-                @Override
-                public void onSuccess() {
-                    Bitmap bitmap = ((BitmapDrawable) mPhotoView.getDrawable()).getBitmap();
-                    if (null != bitmap) {
-                        Palette p = new Palette.Builder(bitmap).generate();
-                        mMutedColor = p.getDarkMutedColor(0xFF333333);
-                        mRootView.findViewById(R.id.meta_bar)
-                                .setBackgroundColor(mMutedColor);
-                    }
-                }
+            if (!mIsCard) {
+                Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
+                        .noPlaceholder().error(R.drawable.ic_broken_image)
+                        .into(new Target() {
+                            @Override
+                            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                                if (null != bitmap) {
+                                    ConstraintSet constraints = new ConstraintSet();
+                                    constraints.clone((ConstraintLayout) mPhotoView.getParent());
+                                    constraints.setDimensionRatio(mPhotoView.getId(),
+                                            (bitmap.getWidth() >= bitmap.getHeight() ? "H," : "W,")
+                                                    + bitmap.getWidth() + ":"
+                                                    + bitmap.getHeight());
+                                    constraints.applyTo((ConstraintLayout) mPhotoView.getParent());
+                                    mPhotoView.setImageBitmap(bitmap);
+                                    mPhotoView.setAdjustViewBounds(true);
+                                    mPhotoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                    Palette p = new Palette.Builder(bitmap).generate();
+                                    mMutedColor = p.getDarkMutedColor(0xFF333333);
+                                    mRootView.findViewById(R.id.meta_bar).setBackgroundColor(mMutedColor);
+                                }
+                            }
 
-                @Override
-                public void onError(Exception e) {
-                    Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
-                }
-            });*/
-            Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
-                    .noPlaceholder().error(R.drawable.ic_broken_image)
-                    .into(new Target() {
-                        @Override
-                        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            if (null != bitmap) {
-                                mPhotoView.setImageBitmap(bitmap);
-                                mPhotoView.setAdjustViewBounds(true);
-                                mPhotoView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                ConstraintSet constraints = new ConstraintSet();
-                                constraints.clone((ConstraintLayout) mPhotoView.getParent());
-                                constraints.setDimensionRatio(mPhotoView.getId(),
-                                        (bitmap.getWidth() >= bitmap.getHeight() ? "W," : "H,")
-                                                + bitmap.getWidth() + ":"
-                                                + bitmap.getHeight());
-                                constraints.applyTo((ConstraintLayout) mPhotoView.getParent());
-                                Palette p = new Palette.Builder(bitmap).generate();
-                                mMutedColor = p.getDarkMutedColor(0xFF333333);
-                                mRootView.findViewById(R.id.meta_bar).setBackgroundColor(mMutedColor);
+                            @Override
+                            public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                                Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
+                            }
+
+                            @Override
+                            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                            }
+                        });
+                mRootView.findViewById(R.id.meta_bar).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mPhotoContainerView.getLayoutParams();
+                        params.bottomMargin = mRootView.findViewById(R.id.meta_bar).getHeight();
+                        mPhotoContainerView.setLayoutParams(params);
+                        mPhotoContainerView.invalidate();
+                        mPhotoContainerView.requestLayout();
+                    }
+                });
+            } else {
+                Picasso.get().load(mCursor.getString(ArticleLoader.Query.PHOTO_URL))
+                        .noPlaceholder().error(R.drawable.ic_broken_image)
+                        .fit().centerCrop().into(mPhotoView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Bitmap bitmap = ((BitmapDrawable) mPhotoView.getDrawable()).getBitmap();
+                        if (null != bitmap) {
+                            Palette p = new Palette.Builder(bitmap).generate();
+                            mMutedColor = p.getDarkMutedColor(0xFF333333);
+                            mRootView.findViewById(R.id.meta_bar)
+                                    .setBackgroundColor(mMutedColor);
+                            if (mFragmentVisibilityState) {
+                                mRootView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        final View spacer = mRootView.findViewById(R.id.spacer);
+                                        final int spacerHeightOriginal = spacer.getHeight();
+                                        ValueAnimator shrinkAnim = Utilities.getToggleHeightAnimator(
+                                                spacer,
+                                                spacerHeightOriginal,
+                                                (int) (spacerHeightOriginal * 0.5),
+                                                450);
+                                        shrinkAnim.addListener(new AnimatorListenerAdapter() {
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+                                                ValueAnimator expandAnim = Utilities.getToggleHeightAnimator(
+                                                        spacer,
+                                                        spacer.getHeight(),
+                                                        spacerHeightOriginal,
+                                                        750);
+                                                expandAnim.start();
+                                            }
+                                        });
+                                        shrinkAnim.start();
+                                    }
+                                });
                             }
                         }
+                    }
 
-                        @Override
-                        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-                            Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
-                        }
-
-                        @Override
-                        public void onPrepareLoad(Drawable placeHolderDrawable) {
-                        }
-                    });
-            mRootView.findViewById(R.id.meta_bar).post(new Runnable() {
-                @Override
-                public void run() {
-                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) mPhotoContainerView.getLayoutParams();
-                    params.bottomMargin = mRootView.findViewById(R.id.meta_bar).getHeight();
-                    mPhotoContainerView.setLayoutParams(params);
-                    mPhotoContainerView.invalidate();
-                    mPhotoContainerView.requestLayout();
-                }
-            });
+                    @Override
+                    public void onError(Exception e) {
+                        Log.d(TAG, "Picasso failed to load image for id " + mCursor.getInt(ArticleLoader.Query._ID));
+                    }
+                });
+            }
         } else {
             mRootView.setVisibility(View.GONE);
             titleView.setText("N/A");

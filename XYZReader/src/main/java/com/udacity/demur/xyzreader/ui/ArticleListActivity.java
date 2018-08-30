@@ -229,16 +229,16 @@ public class ArticleListActivity extends AppCompatActivity implements
                     .into(new Target() {
                         @Override
                         public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                            holder.thumbnailView.setImageBitmap(bitmap);
-                            holder.thumbnailView.setAdjustViewBounds(true);
-                            holder.thumbnailView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                             ConstraintSet constraints = new ConstraintSet();
                             constraints.clone((ConstraintLayout) holder.cvCover.getParent());
                             constraints.setDimensionRatio(holder.cvCover.getId(),
-                                    (bitmap.getWidth() >= bitmap.getHeight() ? "W," : "H,")
+                                    (bitmap.getWidth() >= bitmap.getHeight() ? "H," : "W,")
                                             + bitmap.getWidth() + ":"
                                             + bitmap.getHeight());
                             constraints.applyTo((ConstraintLayout) holder.cvCover.getParent());
+                            holder.thumbnailView.setImageBitmap(bitmap);
+                            holder.thumbnailView.setAdjustViewBounds(true);
+                            holder.thumbnailView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                         }
 
                         @Override
