@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -193,13 +194,16 @@ public class ArticleListActivity extends AppCompatActivity implements
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
-                    Pair<View, String> p1 = Pair.create(view.findViewById(R.id.thumbnail), "cover_image");
-                    Pair<View, String> p2 = Pair.create(view.findViewById(R.id.article_title), "article_title");
-                    Pair<View, String> p3 = Pair.create(view.findViewById(R.id.article_subtitle), "article_subtitle");
-                    @SuppressWarnings("unchecked")
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(ArticleListActivity.this, p1, p2, p3);
-                    startActivity(intent, options.toBundle());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        Pair<View, String> p1 = Pair.create(view.findViewById(R.id.thumbnail), "cover_image");
+                        Pair<View, String> p2 = Pair.create(view.findViewById(R.id.article_title), "article_title");
+                        Pair<View, String> p3 = Pair.create(view.findViewById(R.id.article_subtitle), "article_subtitle");
+                        @SuppressWarnings("unchecked")
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation(ArticleListActivity.this, p1, p2, p3);
+                        startActivity(intent, options.toBundle());
+                    } else
+                        startActivity(intent);
                 }
             });
             return vh;
