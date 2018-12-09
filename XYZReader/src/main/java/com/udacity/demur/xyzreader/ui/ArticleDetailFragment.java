@@ -72,6 +72,7 @@ public class ArticleDetailFragment extends Fragment implements
     // Most time functions can only handle 1902 - 2037
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
     private Toolbar mToolbar;
+    private Boolean isToolbarSet = false;
     private String mTitle;
     private String mShareTitleString;
     private Boolean mFragmentVisibilityState = false;
@@ -334,16 +335,18 @@ public class ArticleDetailFragment extends Fragment implements
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         mFragmentVisibilityState = isVisibleToUser;
+        isToolbarSet = isVisibleToUser ? isToolbarSet : false;
         enableHomeAsUp();
     }
 
     private void enableHomeAsUp() {
-        if (mFragmentVisibilityState && null != mToolbar) {
+        if (mFragmentVisibilityState && null != mToolbar && !isToolbarSet) {
             AppCompatActivity hostActivity = (AppCompatActivity) getContext();
             if (null != hostActivity) {
                 hostActivity.setSupportActionBar(mToolbar);
                 //hostActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 //hostActivity.getSupportActionBar().setHomeButtonEnabled(true);
+                isToolbarSet = true;
             }
         }
     }
