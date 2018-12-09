@@ -81,7 +81,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         });
 
         mRecyclerView = findViewById(R.id.recycler_view);
-        getSupportLoaderManager().initLoader(0, null, this);
+        android.support.v4.app.LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
 
         if (savedInstanceState == null) {
             refresh();

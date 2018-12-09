@@ -111,7 +111,7 @@ public class ArticleDetailFragment extends Fragment implements
         // the fragment's onCreate may cause the same LoaderManager to be dealt to multiple
         // fragments because their mIndex is -1 (haven't been added to the activity yet). Thus,
         // we do this in onActivityCreated.
-        getLoaderManager().initLoader(0, null, this);
+        android.support.v4.app.LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
     }
 
     @Override

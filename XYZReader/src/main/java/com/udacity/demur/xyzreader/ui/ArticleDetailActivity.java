@@ -53,7 +53,7 @@ public class ArticleDetailActivity extends AppCompatActivity
         }
         setContentView(R.layout.activity_article_detail);
 
-        getSupportLoaderManager().initLoader(0, null, this);
+        android.support.v4.app.LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.pager);
