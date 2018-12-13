@@ -15,9 +15,11 @@
      limitations under the License.
 -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Base" parent="@style/Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="Theme.Bacon" parent="Theme.Base">
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorPrimaryDark">@color/theme_primary_dark</item>
         <item name="colorPrimaryLight" type="color">@color/theme_primary_light</item>
@@ -25,16 +27,9 @@
         <item name="android:textColor">@color/theme_text_primary</item>
         <item name="android:textColorSecondary">@color/theme_text_secondary</item>
         <item name="divider">@color/theme_divider</item>
-        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
-        <item name="android:windowEnterTransition" tools:ignore="NewApi">@android:transition/explode</item>
-        <item name="android:windowExitTransition" tools:ignore="NewApi">@android:transition/explode</item>
-        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">@transition/change_image_transform</item>
-        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">@transition/change_image_transform</item>
     </style>
 
-    <style name="Theme.Bacon.Detail">
-        <item name="android:statusBarColor" tools:ignore="NewApi">@android:color/transparent</item>
-    </style>
+    <style name="Theme.Bacon.Detail" />
 
     <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="Theme.Bacon">
         <item name="android:windowNoTitle">true</item>
@@ -62,11 +57,12 @@
         <item name="android:textSize">@dimen/detail_body_text_size</item>
     </style>
 
-    <style name="DetailCardView">
+    <style name="DetailCardViewBase" />
+
+    <style name="DetailCardView" parent="DetailCardViewBase">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:clickable">true</item>
-        <item name="android:elevation" tools:ignore="NewApi">@dimen/detail_card_tablet_elevation</item>
         <item name="android:focusable">true</item>
         <item name="android:paddingEnd">@dimen/detail_card_tablet_padding_sides</item>
         <item name="android:paddingStart">@dimen/detail_card_tablet_padding_sides</item>
@@ -102,7 +98,9 @@
         <item name="android:paddingTop">@dimen/detail_metabar_vert_padding</item>
     </style>
 
-    <style name="DetailArticleTitle">
+    <style name="DetailArticleTitleBase" />
+
+    <style name="DetailArticleTitle" parent="DetailArticleTitleBase">
         <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -112,15 +110,15 @@
         <item name="android:textColor">#fff</item>
         <item name="android:textSize">@dimen/detail_title_text_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:transitionName" tools:ignore="NewApi">article_title</item>
     </style>
 
-    <style name="DetailArticleByLine">
+    <style name="DetailArticleByLineBase" />
+
+    <style name="DetailArticleByLine" parent="DetailArticleByLineBase">
         <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#8fff</item>
-        <item name="android:transitionName" tools:ignore="NewApi">article_subtitle</item>
     </style>
 
     <style name="DetailIVBack">
@@ -139,14 +137,15 @@
         <item name="android:background">@color/photo_placeholder</item>
     </style>
 
-    <style name="DetailPhoto">
+    <style name="DetailPhotoBase" />
+
+    <style name="DetailPhoto" parent="DetailPhotoBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/detail_photo_layout_height</item>
         <item name="android:src">@drawable/ic_image</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:transitionName" tools:ignore="NewApi">cover_image</item>
     </style>
 
     <style name="DetailCollapsingToolbar">
@@ -165,19 +164,19 @@
         <item name="elevation">@dimen/detail_app_bar_elevation</item>
     </style>
 
-    <style name="DetailFAB">
+    <style name="DetailFABBase" />
+
+    <style name="DetailFAB" parent="DetailFABBase">
         <item name="android:layout_width">@dimen/fab_width</item>
         <item name="android:layout_height">@dimen/fab_height</item>
         <item name="android:layout_gravity">end|bottom</item>
         <item name="android:layout_marginBottom">@dimen/fab_margin_bottom</item>
         <item name="android:layout_marginEnd">@dimen/fab_margin_end</item>
         <item name="android:background">@drawable/add_fab_background</item>
-        <item name="android:elevation" tools:targetApi="lollipop">@dimen/fab_elevation</item>
         <item name="android:src">@drawable/ic_share</item>
         <item name="android:scaleType">center</item>
         <item name="layout_anchor">@id/pager</item>
         <item name="layout_anchorGravity">bottom|right|end</item>
-        <item name="android:stateListAnimator" tools:targetApi="lollipop">@anim/fab_state_list_anim</item>
     </style>
 
     <style name="DetailViewPager">
@@ -215,11 +214,12 @@
         <item name="android:scrollbarStyle">outsideOverlay</item>
     </style>
 
-    <style name="MainAppBar">
+    <style name="MainAppBarBase" />
+
+    <style name="MainAppBar" parent="MainAppBarBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/main_app_bar_height</item>
         <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation" tools:targetApi="lollipop">@dimen/main_app_bar_elevation</item>
     </style>
 
     <style name="MainCollapsingToolbar">
@@ -270,7 +270,9 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
-    <style name="ListItemCardImage">
+    <style name="ListItemCardImageBase" />
+
+    <style name="ListItemCardImage" parent="ListItemCardImageBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/photo_placeholder</item>
@@ -280,7 +282,6 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
-        <item name="android:transitionName" tools:ignore="NewApi">cover_image</item>
     </style>
 
     <style name="ListItemCardTextBacking">
@@ -293,7 +294,9 @@
         <item name="layout_constraintTop_toTopOf">@id/article_title</item>
     </style>
 
-    <style name="ListItemTitle" parent="@style/TextAppearance.AppCompat.Subhead">
+    <style name="ListItemTitleBase" parent="@style/TextAppearance.AppCompat.Subhead" />
+
+    <style name="ListItemTitle" parent="ListItemTitleBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ellipsize">end</item>
@@ -306,10 +309,11 @@
         <item name="layout_constraintBottom_toTopOf">@id/article_subtitle</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="android:transitionName" tools:ignore="NewApi">article_title</item>
     </style>
 
-    <style name="ListItemSubTitle" parent="@style/TextAppearance.AppCompat.Body1">
+    <style name="ListItemSubTitleBase" parent="@style/TextAppearance.AppCompat.Body1" />
+
+    <style name="ListItemSubTitle" parent="ListItemSubTitleBase">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:ellipsize">end</item>
@@ -321,6 +325,5 @@
         <item name="layout_constraintBottom_toBottomOf">@id/thumbnail</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
-        <item name="android:transitionName" tools:ignore="NewApi">article_subtitle</item>
     </style>
 </resources>

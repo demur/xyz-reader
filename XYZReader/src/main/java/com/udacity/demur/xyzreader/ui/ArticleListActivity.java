@@ -194,7 +194,7 @@ public class ArticleListActivity extends AppCompatActivity implements
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(Intent.ACTION_VIEW, ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         Pair<View, String> p1 = Pair.create(view.findViewById(R.id.thumbnail), "cover_image");
                         Pair<View, String> p2 = Pair.create(view.findViewById(R.id.article_title), "article_title");
                         Pair<View, String> p3 = Pair.create(view.findViewById(R.id.article_subtitle), "article_subtitle");

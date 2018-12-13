@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Base" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowEnterTransition">@android:transition/explode</item>
+        <item name="android:windowExitTransition">@android:transition/explode</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>
+    </style>
+
+    <style name="DetailArticleTitleBase">
+        <item name="android:transitionName">article_title</item>
+    </style>
+
+    <style name="DetailArticleByLineBase">
+        <item name="android:transitionName">article_subtitle</item>
+    </style>
+
+    <style name="DetailPhotoBase">
+        <item name="android:transitionName">cover_image</item>
+    </style>
+
+    <style name="ListItemCardImageBase">
+        <item name="android:transitionName">cover_image</item>
+    </style>
+
+    <style name="ListItemTitleBase" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:transitionName">article_title</item>
+    </style>
+
+    <style name="ListItemSubTitleBase" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:transitionName">article_subtitle</item>
+    </style>
+
+    <style name="Theme.Bacon.Detail">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="DetailCardViewBase">
+        <item name="android:elevation">@dimen/detail_card_tablet_elevation</item>
+    </style>
+
+    <style name="MainAppBarBase">
+        <item name="android:elevation">@dimen/main_app_bar_elevation</item>
+    </style>
+
+    <style name="DetailFABBase">
+        <item name="android:elevation">@dimen/fab_elevation</item>
+        <item name="android:stateListAnimator">@anim/fab_state_list_anim</item>
+    </style>
+</resources>
