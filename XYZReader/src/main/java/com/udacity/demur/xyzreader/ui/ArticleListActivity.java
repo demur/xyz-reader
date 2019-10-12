@@ -11,18 +11,18 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
-import android.support.v4.util.Pair;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.loader.app.LoaderManager;
+import androidx.loader.content.Loader;
+import androidx.core.util.Pair;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -81,7 +81,7 @@ public class ArticleListActivity extends AppCompatActivity implements
         });
 
         mRecyclerView = findViewById(R.id.recycler_view);
-        android.support.v4.app.LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
+        LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
 
         if (savedInstanceState == null) {
             refresh();

@@ -5,15 +5,15 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.content.Loader;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.loader.app.LoaderManager;
+import androidx.core.app.ShareCompat;
+import androidx.loader.content.Loader;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +43,7 @@ public class ArticleDetailActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_article_detail);
 
-        android.support.v4.app.LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
+        LoaderManager.getInstance(this).initLoader(0, null, this).forceLoad();
 
         mPagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         mPager = findViewById(R.id.pager);

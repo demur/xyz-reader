@@ -1,17 +1,17 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/DetailCoordinatorLayout">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         style="@style/DetailAppBar">
 
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             style="@style/DetailCollapsingToolbar">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/photo_container"
                 style="@style/DetailPhotoContainer"
                 app:layout_collapseMode="parallax">
@@ -25,7 +25,7 @@
                     android:id="@+id/iv_back"
                     style="@style/DetailIVBack" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/meta_bar"
@@ -43,19 +43,19 @@
                     tools:text="1820-01-01 by Philip K. Dick" />
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/DetailToolbar"
                 tools:text="Second Variety" />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView style="@style/DetailNestedScrollView">
+    <androidx.core.widget.NestedScrollView style="@style/DetailNestedScrollView">
 
         <TextView
             android:id="@+id/article_body"
             style="@style/ArticleBody"
             tools:text="The Indian woman settled the coffee with a piece of ice, glanced from Malemute Kid to her husband, then at the dogs, but vouchsafed no reply. It was such a palpable truism that none was necessary. Two hundred miles of unbroken trail in prospect, with a scant six days' grub for themselves and none for the dogs, could admit no other alternative. The two men and the woman grouped about the fire and began their meagre meal. The dogs lay in their harnesses, for it was a midday halt, and watched each mouthful enviously." />
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

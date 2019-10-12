@@ -1,12 +1,12 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/ListItemRootConstraintLayout">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/cv_cover"
         style="@style/ListItemCardView">
 
-        <android.support.constraint.ConstraintLayout style="@style/ListItemCardConstraintLayout">
+        <androidx.constraintlayout.widget.ConstraintLayout style="@style/ListItemCardConstraintLayout">
 
             <ImageView
                 android:id="@+id/thumbnail"
@@ -25,6 +25,6 @@
                 style="@style/ListItemSubTitle"
                 tools:text="1820-01-01 by Philip K. Dick" />
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v7.widget.CardView>
-</android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
