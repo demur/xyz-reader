@@ -41,7 +41,7 @@ public class RetrofitClient {
     }
 
     // Will come handy for IdlingRegistry usage while androidTest`ing
-    public static OkHttpClient getOkHttpInstance() {
+    private static OkHttpClient getOkHttpInstance() {
         if (null == sOkHttpInstance) {
             synchronized (OKHTTP_LOCK) {
                 sOkHttpInstance = new OkHttpClient.Builder().build();

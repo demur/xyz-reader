@@ -276,11 +276,11 @@ public class ArticleListActivity extends AppCompatActivity implements
         }
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView thumbnailView;
-        public TextView titleView;
-        public TextView subtitleView;
-        public CardView cvCover;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView thumbnailView;
+        TextView titleView;
+        TextView subtitleView;
+        CardView cvCover;
 
         ViewHolder(View view) {
             super(view);

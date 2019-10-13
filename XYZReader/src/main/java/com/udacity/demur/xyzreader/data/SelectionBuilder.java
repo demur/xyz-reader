@@ -64,7 +64,7 @@ public class SelectionBuilder {
      * Append the given selection clause to the internal state. Each clause is
      * surrounded with parenthesis and combined using {@code AND}.
      */
-    public SelectionBuilder where(String selection, String... selectionArgs) {
+    SelectionBuilder where(String selection, String... selectionArgs) {
         if (TextUtils.isEmpty(selection)) {
             if (selectionArgs != null && selectionArgs.length > 0) {
                 throw new IllegalArgumentException(
@@ -89,7 +89,7 @@ public class SelectionBuilder {
         return this;
     }
 
-    public SelectionBuilder table(String table) {
+    SelectionBuilder table(String table) {
         mTable = table;
         return this;
     }
@@ -102,7 +102,7 @@ public class SelectionBuilder {
 
     private void ensureProjectionMap() {
         if (mProjectionMap == null) {
-            mProjectionMap = new HashMap<String, String>();
+            mProjectionMap = new HashMap<>();
         }
     }
 
@@ -114,7 +114,7 @@ public class SelectionBuilder {
 
     private void ensureSelectionArgs() {
         if (mSelectionArgs == null) {
-            mSelectionArgs = new ArrayList<String>();
+            mSelectionArgs = new ArrayList<>();
         }
     }
 
@@ -135,7 +135,7 @@ public class SelectionBuilder {
      *
      * @see #getSelectionArgs()
      */
-    public String getSelection() {
+    private String getSelection() {
         if (mSelection != null) {
             return mSelection.toString();
         } else {
@@ -148,7 +148,7 @@ public class SelectionBuilder {
      *
      * @see #getSelection()
      */
-    public String[] getSelectionArgs() {
+    private String[] getSelectionArgs() {
         if (mSelectionArgs != null) {
             return mSelectionArgs.toArray(new String[mSelectionArgs.size()]);
         } else {
@@ -175,15 +175,15 @@ public class SelectionBuilder {
     /**
      * Execute query using the current internal state as {@code WHERE} clause.
      */
-    public Cursor query(SQLiteDatabase db, String[] columns, String orderBy) {
+    Cursor query(SQLiteDatabase db, String[] columns, String orderBy) {
         return query(db, columns, null, null, orderBy, null);
     }
 
     /**
      * Execute query using the current internal state as {@code WHERE} clause.
      */
-    public Cursor query(SQLiteDatabase db, String[] columns, String groupBy,
-                        String having, String orderBy, String limit) {
+    private Cursor query(SQLiteDatabase db, String[] columns, String groupBy,
+                         String having, String orderBy, String limit) {
         assertTable();
         if (columns != null) mapColumns(columns);
         return db.query(mTable, columns, getSelection(), getSelectionArgs(), groupBy, having,
@@ -193,7 +193,7 @@ public class SelectionBuilder {
     /**
      * Execute update using the current internal state as {@code WHERE} clause.
      */
-    public int update(SQLiteDatabase db, ContentValues values) {
+    int update(SQLiteDatabase db, ContentValues values) {
         assertTable();
         return db.update(mTable, values, getSelection(), getSelectionArgs());
     }
@@ -201,7 +201,7 @@ public class SelectionBuilder {
     /**
      * Execute delete using the current internal state as {@code WHERE} clause.
      */
-    public int delete(SQLiteDatabase db) {
+    int delete(SQLiteDatabase db) {
         assertTable();
         return db.delete(mTable, getSelection(), getSelectionArgs());
     }
